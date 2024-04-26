@@ -70,3 +70,5 @@ group :test do
 end
 
 gem "pokemon_tcg_sdk", "~> 4.5"
+
+gem "faker", "~> 3.3"
