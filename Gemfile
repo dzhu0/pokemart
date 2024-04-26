@@ -72,3 +72,7 @@ end
 gem "pokemon_tcg_sdk", "~> 4.5"
 
 gem "faker", "~> 3.3"
+
+gem "kaminari", "~> 1.2"
+
+gem "bootstrap4-kaminari-views", "~> 1.0"
