@@ -3,4 +3,20 @@ class PokemonCard < ApplicationRecord
     has_many :price_histories
 
     has_one_attached :image
+
+    validates :name, presence: true
+    validates :stock_quantity, presence: true, numericality: { greater_than_or_equal_to: 0 }
+
+    validate :image_presence
+    validate :types_presence
+
+    private
+
+    def image_presence
+        errors.add(:image, "must be attached") unless image.attached?
+    end
+
+    def types_presence
+        errors.add(:types, "must be present") if types.empty?
+    end
 end
