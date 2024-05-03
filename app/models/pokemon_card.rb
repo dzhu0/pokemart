@@ -10,6 +10,18 @@ class PokemonCard < ApplicationRecord
     validate :image_presence
     validate :types_presence
 
+    def new?
+        created_at >= 3.days.ago
+    end
+
+    def recently_updated?
+        updated_at >= 3.days.ago
+    end
+
+    def price
+        price_histories.order(created_at: :desc).first.price
+    end
+
     private
 
     def image_presence
