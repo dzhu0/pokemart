@@ -1,5 +1,7 @@
 <h1 class="text-center mb-2">Pokemon Cards</h1>
 
+<%= render partial: 'shared/pokemon_card_filter' %>
+
 <% if @pokemon_cards.any? %>
   <div class="row justify-content-center gy-4">
     <% @pokemon_cards.each do |pokemon_card| %>
