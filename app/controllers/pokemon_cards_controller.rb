@@ -13,4 +13,11 @@ class PokemonCardsController < ApplicationController
 
         @pokemon_cards = @pokemon_cards.page(params[:page]).per(15)
     end
+
+    def show
+        @pokemon_card = PokemonCard.find(params[:id])
+        render file: "#{Rails.root}/public/404.html", status: :not_found, layout: false unless @pokemon_card.stock_quantity > 0
+    rescue ActiveRecord::RecordNotFound
+        render file: "#{Rails.root}/public/404.html", status: :not_found, layout: false
+    end
 end

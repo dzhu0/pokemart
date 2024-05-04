@@ -8,7 +8,9 @@
 
     <%= image_tag pokemon_card.image, class: 'w-75', alt: pokemon_card.name %>
 
-    <h3><%= pokemon_card.name.capitalize %></h3>
+    <%= link_to pokemon_card_path(pokemon_card) do %>
+      <h3><%= pokemon_card.name.capitalize %></h3>
+    <% end %>
 
     <p>Price: $<%= '%.2f' % pokemon_card.price %></p>
   </div>
