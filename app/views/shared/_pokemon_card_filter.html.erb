@@ -1,0 +1,8 @@
+<%= form_with(method: "get", class: "mb-4") do %>
+  <div class="row justify-content-center">
+    <div class="col-md-2">
+      <%= label_tag(:filter, "Filter by:", class: "form-label") %>
+      <%= select_tag(:filter, options_for_select([["No filter", ""], ["New", "new"], ["Recently Updated", "recently_updated"]], params[:filter]), onchange: "this.form.submit()", class: "form-select") %>
+    </div>
+  </div>
+<% end %>

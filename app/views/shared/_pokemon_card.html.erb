@@ -1,0 +1,17 @@
+<div class="col-md-4">
+  <div class="d-flex flex-column align-items-center">
+    <% if pokemon_card.new? %>
+      <span class="badge bg-primary rounded-0 rounded-top w-50">New</span>
+    <% elsif pokemon_card.recently_updated? %>
+      <span class="badge bg-warning rounded-0 rounded-top w-50">Updated</span>
+    <% end %>
+
+    <%= image_tag pokemon_card.image, class: 'w-75', alt: pokemon_card.name %>
+
+    <%= link_to pokemon_card_path(pokemon_card) do %>
+      <h3><%= pokemon_card.name.capitalize %></h3>
+    <% end %>
+
+    <p>Price: $<%= '%.2f' % pokemon_card.price %></p>
+  </div>
+</div>
