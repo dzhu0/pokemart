@@ -15,7 +15,7 @@
     <div>
       <p>
         <b>Type:</b>
-        <%= @pokemon_card.types.map { |type| type.name }.join(', ') %>
+        <%= @pokemon_card.types.map { |type| link_to(type.name, type_path(type)) }.join(', ').html_safe %>
       </p>
       <p><b>Description:</b> <%= @pokemon_card.description.present? ? @pokemon_card.description : "N/A" %></p>
       <p><b>Price:</b> $<%= '%.2f' % @pokemon_card.price %></p>

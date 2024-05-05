@@ -24,6 +24,14 @@
             <li>
               <%= link_to "Cards", pokemon_cards_path, class: "nav-link" %>
             </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Types</a>
+              <div class="dropdown-menu">
+                <% Type.all.each do |type| %>
+                  <%= link_to type.name.capitalize, type_path(type), class: "dropdown-item" %>
+                <% end %>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
