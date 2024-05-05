@@ -1,0 +1,19 @@
+<h1 class="text-center mb-2"><%= @type.name.capitalize %> Pokemon Cards</h1>
+
+<%= render partial: 'shared/pokemon_card_filter' %>
+
+<% if @pokemon_cards.any? %>
+  <div class="row justify-content-center gy-4">
+    <% @pokemon_cards.each do |pokemon_card| %>
+      <%= render partial: 'shared/pokemon_card', locals: { pokemon_card: pokemon_card } %>
+    <% end %>
+  </div>
+
+  <div class="row mt-4">
+    <%= paginate @pokemon_cards, theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm justify-content-center", nav_class: "d-inline-b" %>
+  </div>
+<% else %>
+  <div class="alert alert-info text-center" role="alert">
+    No Pokemon Cards found.
+  </div>
+<% end %>
