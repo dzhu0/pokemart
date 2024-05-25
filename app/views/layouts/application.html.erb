@@ -33,6 +33,16 @@
               </div>
             </li>
           </ul>
+
+          <%= form_with(url: search_index_path, method: "get", class: "form-inline flex-grow-1") do %>
+            <div class="input-group flex-nowrap">
+              <%= select_tag(:type, options_from_collection_for_select(Type.all, :id, :name, params[:type]), include_blank: "All Types", class: "form-select rounded-0 rounded-start flex-grow-0 w-auto") %>
+
+              <%= text_field_tag(:search, params[:search], class: "form-control", placeholder: "Search for Pokemon Card", aria: { label: "Search" }) %>
+
+              <button class="btn btn-success">Search</button>
+            </div>
+          <% end %>
         </div>
       </div>
     </nav>
