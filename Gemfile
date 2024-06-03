@@ -76,3 +76,9 @@ gem "faker", "~> 3.3"
 gem "kaminari", "~> 1.2"
 
 gem "bootstrap4-kaminari-views", "~> 1.0"
+
+gem "activeadmin", "~> 3.2"
+
+gem "devise", "~> 4.9"
+
+gem "sassc-rails", "~> 2.1"
