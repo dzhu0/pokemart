@@ -1,0 +1,2 @@
+class TaxHistory < ApplicationRecord
+end
