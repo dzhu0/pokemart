@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_09_032413) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_03_000636) do
   create_table "abouts", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -99,20 +99,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_09_032413) do
     t.datetime "updated_at", null: false
     t.integer "pokemon_card_id", null: false
     t.index ["pokemon_card_id"], name: "index_price_histories_on_pokemon_card_id"
-  end
-
-  create_table "provinces", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "tax_histories", force: :cascade do |t|
-    t.decimal "pst"
-    t.decimal "gst"
-    t.decimal "hst"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "types", force: :cascade do |t|
