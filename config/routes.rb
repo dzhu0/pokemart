@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   resources :contacts, only: [:index]
 
   devise_for :admin_users, ActiveAdmin::Devise.config
+
+  devise_for :customers
+
   ActiveAdmin.routes(self)
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
