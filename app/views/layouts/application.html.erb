@@ -49,11 +49,40 @@
               <button class="btn btn-success">Search</button>
             </div>
           <% end %>
+
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <%= customer_signed_in? ? current_customer.username : "Menu" %>
+              </a>
+              <div class="dropdown-menu">
+                <% if customer_signed_in? %>
+                  <%= link_to "Edit Profile", edit_customer_registration_path, class: "dropdown-item" %>
+                  <%= button_to "Sign Out", destroy_customer_session_path, class: "dropdown-item", method: :delete %>
+                <% else %>
+                  <%= link_to "Sign Up", new_customer_registration_path, class: "dropdown-item" %>
+                  <%= link_to "Sign In", new_customer_session_path, class: "dropdown-item" %>
+                <% end %>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
 
     <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-md-3">
+          <% if notice %>
+            <p class="alert alert-info"><%= notice %></p>
+          <% end %>
+
+          <% if alert %>
+            <p class="alert alert-danger"><%= alert %></p>
+          <% end %>
+        </div>
+      </div>
+
       <%= yield %>
     </div>
   </body>
