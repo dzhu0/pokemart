@@ -7,8 +7,6 @@ Rails.application.routes.draw do
   resources :abouts, only: [:index]
   resources :contacts, only: [:index]
 
-  resources :cart, only: [:index, :create]
-
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   devise_for :customers

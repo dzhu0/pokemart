@@ -20,18 +20,6 @@
       <p><b>Description:</b> <%= @pokemon_card.description.present? ? @pokemon_card.description : "N/A" %></p>
       <p><b>Price:</b> $<%= '%.2f' % @pokemon_card.price %></p>
       <p><b>Stock Quantity:</b> <%= @pokemon_card.stock_quantity %></p>
-
-      <% if @pokemon_card.stock_quantity > 0 %>
-        <%= form_tag(cart_index_path, method: :post, class: "mb-3", style: "width: 214.516px;") do %>
-          <%= hidden_field_tag(:id, @pokemon_card.id) %>
-          <div class="input-group flex-nowrap">
-            <%= number_field_tag(:quantity, 1, min: 1, max: @pokemon_card.stock_quantity, class: "form-control") %>
-            <button class="btn btn-primary">Add to Cart</button>
-          </div>
-        <% end %>
-      <% else %>
-        <p class="text-danger"><b>Out of stock</b></p>
-      <% end %>
     </div>
   </div>
 </div>
