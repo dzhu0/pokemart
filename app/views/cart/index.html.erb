@@ -1,0 +1,46 @@
+<h1 class="text-center mb-4">Your Cart</h1>
+
+<% if @cart.any? %>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Card Details</th>
+              <th scope="col" class="text-end">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @cart.each do |item| %>
+              <% pokemon_card = @pokemon_cards.find(item["id"]) %>
+              <tr>
+                <td>
+                  <div class="d-flex align-items-start gap-3">
+                    <%= image_tag pokemon_card.image, class: "img-fluid", style: "max-width: 100px;", alt: pokemon_card.name %>
+
+                    <div>
+                      <%= link_to pokemon_card_path(pokemon_card) do %>
+                        <p><b><%= pokemon_card.name.capitalize %></b></p>
+                      <% end %>
+                    </div>
+                  </div>
+                </td>
+                <td class="text-end">$<%= '%.2f' % (pokemon_card.price) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="2" class="text-end">Subtotal (<%= @total_quantity %> item<%= "s" if @total_quantity > 1 %>): <b>$<%= '%.2f' % @subtotal %></b></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="alert alert-info text-center" role="alert">
+    Your cart is empty.
+  </div>
+<% end %>
