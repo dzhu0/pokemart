@@ -23,6 +23,13 @@
                       <%= link_to pokemon_card_path(pokemon_card) do %>
                         <p><b><%= pokemon_card.name.capitalize %></b></p>
                       <% end %>
+
+                      <%= form_tag(cart_path(item["id"]), method: :put, class: "mb-3", style: "width: 154.5px;") do %>
+                        <div class="input-group flex-nowrap">
+                          <%= number_field_tag(:quantity, item["quantity"], min: 1, max: pokemon_card.stock_quantity, class: "form-control", id: nil) %>
+                          <button class="btn btn-primary">Update</button>
+                        </div>
+                      <% end %>
                     </div>
                   </div>
                 </td>
