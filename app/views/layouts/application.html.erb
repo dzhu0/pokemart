@@ -65,6 +65,11 @@
                 <% end %>
               </div>
             </li>
+            <li>
+              <%= link_to cart_index_path, class: "nav-link" do %>
+                Cart <span class="badge bg-secondary"><%= @total_quantity %></span>
+              <% end %>
+            </li>
           </ul>
         </div>
       </div>
