@@ -30,6 +30,8 @@
                           <button class="btn btn-primary">Update</button>
                         </div>
                       <% end %>
+
+                      <%= button_to "Remove", cart_path(item["id"]), class: "btn btn-danger w-100", method: :delete, style: "width: 154.5px;" %>
                     </div>
                   </div>
                 </td>
