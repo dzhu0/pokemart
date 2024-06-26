@@ -1,7 +1,7 @@
 class CartController < ApplicationController
-    before_action :load_pokemon_card, only: [:create, :update]
+    before_action :load_pokemon_card, only: [:create, :update, :destroy]
     before_action :validate_quantity, only: [:create, :update]
-    before_action :load_cart_item, only: [:create, :update]
+    before_action :load_cart_item, only: [:create, :update, :destroy]
 
     def index
         @pokemon_cards = PokemonCard.where(id: @cart.pluck("id"))
@@ -24,6 +24,12 @@ class CartController < ApplicationController
         return redirect_to root_path unless @cart_item
 
         @cart_item["quantity"] = @quantity
+
+        redirect_to cart_index_path
+    end
+
+    def destroy
+        @cart.delete(@cart_item) if @cart_item
 
         redirect_to cart_index_path
     end
