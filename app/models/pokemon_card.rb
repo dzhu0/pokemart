@@ -1,6 +1,7 @@
 class PokemonCard < ApplicationRecord
     has_and_belongs_to_many :types
     has_many :price_histories
+    has_many :order_details
 
     has_one_attached :image
 
