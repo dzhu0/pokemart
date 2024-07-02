@@ -1,0 +1,89 @@
+<h1 class="text-center mb-4">Checkout</h1>
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <h3>Shipping Address</h3>
+
+    <div class="table-responsive">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>Address: <%= current_customer.address %></td>
+          </tr>
+          <tr>
+            <td>Province: <%= current_customer.province.name %></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="text-end">
+              <%= link_to "Change", edit_shipping_address_orders_path, class: "btn btn-primary" %>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <h3>Order Summary</h3>
+
+    <%= render partial: "shared/error_messages", locals: { flash: flash } %>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Card Details</th>
+            <th scope="col" class="text-end">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @cart.each do |item| %>
+            <% pokemon_card = @pokemon_cards.find(item["id"]) %>
+            <tr>
+              <td>
+                <div class="d-flex align-items-start gap-3">
+                  <%= image_tag pokemon_card.image, class: "img-fluid", style: "max-width: 100px;", alt: pokemon_card.name %>
+
+                  <div>
+                    <%= link_to pokemon_card_path(pokemon_card) do %>
+                      <p><b><%= pokemon_card.name.capitalize %></b></p>
+                    <% end %>
+
+                    <p>Quantity: <b><%= item["quantity"] %></b></p>
+                  </div>
+                </div>
+              </td>
+              <td class="text-end">$<%= '%.2f' % (pokemon_card.price) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2" class="text-end">Subtotal (<%= @total_quantity %> item<%= "s" if @total_quantity > 1 %>): $<%= '%.2f' % @subtotal %></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-end">PST (<%= @tax_history&.pst || 0.0 %>%): $<%= '%.2f' % @pst %></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-end">GST (<%= @tax_history&.gst || 0.0 %>%): $<%= '%.2f' % @gst %></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-end">HST (<%= @tax_history&.hst || 0.0 %>%): $<%= '%.2f' % @hst %></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-end text-danger"><b>Order Total: $<%= '%.2f' % @total %></b></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-end">
+              <%= button_to "Place your order", orders_path, class: "btn btn-warning", method: :post %>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>

@@ -12,6 +12,12 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   devise_for :customers
+  scope '/customers' do
+    resources :orders, only: [:index, :show, :new, :create] do
+      get 'edit_shipping_address', on: :collection
+      post 'update_shipping_address', on: :collection
+    end
+  end
 
   ActiveAdmin.routes(self)
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

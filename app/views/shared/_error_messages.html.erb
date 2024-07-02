@@ -1,0 +1,10 @@
+<% if flash[:errors].present? %>
+  <div id="error_explanation" class="alert alert-danger" data-turbo-cache="false">
+    <b><%= flash[:errors].count %> error<%= "s" if flash[:errors].count > 1 %> prohibited this from being saved:</b>
+    <ul>
+      <% flash[:errors].each do |error_message| %>
+        <li><%= error_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

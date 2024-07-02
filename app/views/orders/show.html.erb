@@ -1,0 +1,77 @@
+<h1 class="text-center mb-4">Order Details #<%= @order.id %></h1>
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <h3>Shipping Address</h3>
+
+    <div class="table-responsive">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>Address: <%= @order.address %></td>
+          </tr>
+          <tr>
+            <td>Province: <%= @order.province.name %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <h3>Order Summary</h3>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Card Details</th>
+            <th scope="col" class="text-end">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order.order_details.each do |item| %>
+            <tr>
+              <td>
+                <div class="d-flex align-items-start gap-3">
+                  <%= image_tag item.pokemon_card.image, class: "img-fluid", style: "max-width: 100px;", alt: item.pokemon_card.name %>
+
+                  <div>
+                    <%= link_to pokemon_card_path(item.pokemon_card) do %>
+                      <p><b><%= item.pokemon_card.name.capitalize %></b></p>
+                    <% end %>
+
+                    <p>Quantity: <b><%= item.quantity %></b></p>
+                  </div>
+                </div>
+              </td>
+              <td class="text-end">$<%= '%.2f' % (item.price) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2" class="text-end">Subtotal (<%= @order.total_quantity %> item<%= "s" if @order.total_quantity > 1 %>): $<%= '%.2f' % @order.subtotal %></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-end">PST (<%= @order.tax_history&.pst || 0.0 %>%): $<%= '%.2f' % @order.pst %></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-end">GST (<%= @order.tax_history&.gst || 0.0 %>%): $<%= '%.2f' % @order.gst %></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-end">HST (<%= @order.tax_history&.hst || 0.0 %>%): $<%= '%.2f' % @order.hst %></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-end text-danger"><b>Order Total: $<%= '%.2f' % @order.total %></b></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-end">Ordered on <%= @order.created_at.strftime("%B %d, %Y") %></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
