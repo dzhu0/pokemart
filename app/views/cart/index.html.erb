@@ -43,6 +43,11 @@
             <tr>
               <td colspan="2" class="text-end">Subtotal (<%= @total_quantity %> item<%= "s" if @total_quantity > 1 %>): <b>$<%= '%.2f' % @subtotal %></b></td>
             </tr>
+            <tr>
+              <td colspan="2" class="text-end">
+                <%= link_to "Proceed to Checkout", new_order_path, class: "btn btn-warning" %>
+              </td>
+            </tr>
           </tfoot>
         </table>
       </div>
