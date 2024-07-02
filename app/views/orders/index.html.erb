@@ -19,6 +19,7 @@
                 <td><%= order.id %></td>
                 <td><%= order.created_at.strftime("%B %d, %Y") %></td>
                 <td>$<%= '%.2f' % order.total %></td>
+                <td><%= link_to 'View', order_path(order), class: "btn btn-outline-primary" %></td>
               </tr>
             <% end %>
           </tbody>

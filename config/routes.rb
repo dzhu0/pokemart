@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   devise_for :customers
   scope '/customers' do
-    resources :orders, only: [:index]
+    resources :orders, only: [:index, :show]
   end
 
   ActiveAdmin.routes(self)
