@@ -1,0 +1,29 @@
+<h1 class="text-center mb-4">Checkout</h1>
+
+<div class="row justify-content-center">
+  <div class="col-md-3">
+    <h3>Shipping Address</h3>
+
+    <%= form_with(url: update_shipping_address_orders_path, method: :post) do %>
+      <%= render partial: "shared/error_messages", locals: { flash: flash } %>
+
+      <div class="mb-3">
+        <%= label_tag(:address, class: "form-label") do %>
+          Address<span class="text-danger">*</span>
+        <% end %>
+        <%= text_field_tag(:address, @address, class: "form-control") %>
+      </div>
+
+      <div class="mb-3">
+        <%= label_tag(:province_id, class: "form-label") do %>
+          Province<span class="text-danger">*</span>
+        <% end %>
+        <%= select_tag(:province_id, options_from_collection_for_select(Province.all, :id, :name, @province_id), include_blank: "No Province", class: "form-select") %>
+      </div>
+
+      <div class="mb-3 text-center">
+        <button class="btn btn-primary">Save</button>
+      </div>
+    <% end %>
+  </div>
+</div>

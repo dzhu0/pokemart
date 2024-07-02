@@ -13,7 +13,10 @@ Rails.application.routes.draw do
 
   devise_for :customers
   scope '/customers' do
-    resources :orders, only: [:index, :show]
+    resources :orders, only: [:index, :show] do
+      get 'edit_shipping_address', on: :collection
+      post 'update_shipping_address', on: :collection
+    end
   end
 
   ActiveAdmin.routes(self)
