@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
     before_action :authenticate_customer!
-    before_action :validate_cart, only: [:new, :edit_shipping_address, :update_shipping_address]
-    before_action :validate_shipping_address, only: [:new]
+    before_action :validate_cart, only: [:new, :edit_shipping_address, :update_shipping_address, :create]
+    before_action :validate_shipping_address, only: [:new, :create]
 
     def index
         @orders = current_customer.orders
@@ -58,6 +58,49 @@ class OrdersController < ApplicationController
         current_customer.save
 
         redirect_to new_order_path
+    end
+
+    def create
+        begin
+            ActiveRecord::Base.transaction do
+                new_order = current_customer.orders.create(
+                    address: current_customer.address,
+                    province_id: current_customer.province_id
+                )
+
+                pokemon_cards_to_save = []
+
+                @cart.each do |item|
+                    pokemon_card = PokemonCard.find(item["id"])
+
+                    pokemon_card.stock_quantity -= item["quantity"]
+                    pokemon_cards_to_save << pokemon_card
+
+                    new_order.order_details.create(
+                        pokemon_card_id: pokemon_card.id,
+                        quantity: item["quantity"],
+                        price: pokemon_card.price
+                    )
+                end
+
+                pokemon_cards_to_save.each(&:save!)
+
+                session[:cart] = []
+                redirect_to order_path(new_order)
+            end
+        rescue ActiveRecord::RecordInvalid => e
+            flash[:errors] = []
+
+            @cart.each do |item|
+                pokemon_card = PokemonCard.find(item["id"])
+
+                if item["quantity"] > pokemon_card.stock_quantity
+                    flash[:errors] << "Quantity is invalid for #{pokemon_card.name.capitalize}"
+                end
+            end
+
+            redirect_to new_order_path
+        end
     end
 
     private
